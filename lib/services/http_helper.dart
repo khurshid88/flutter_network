@@ -91,3 +91,5 @@ class UnauthorisedException extends HttpException {
 class InvalidInputException extends HttpException {
   InvalidInputException([String? message]) : super(message, "Invalid Input: ");
 }
+
+//https://codewithandrea.com/articles/flutter-exception-handling-try-catch-result-type/
