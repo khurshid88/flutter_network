@@ -84,7 +84,7 @@ class HttpService {
   }
 
   /* Http Apis */
-  static String API_POST_LIST = "/posts";
+  static String API_POST_LIST = "/postss";
   static String API_REFRESH_TOKEN = "/refresh";
 
   /* Http Params */

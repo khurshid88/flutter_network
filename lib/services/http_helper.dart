@@ -27,7 +27,11 @@ class HttpInterceptor implements InterceptorContract {
   // Currently we do not have any need to intercept response
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
-    LogService.i(data.toString());
+    if (data.statusCode == 200) {
+      LogService.i(data.toString());
+    } else {
+      LogService.e(data.toString());
+    }
     return data;
   }
 }
@@ -48,7 +52,8 @@ class HttpRetryPolicy extends RetryPolicy {
       Map<String, String> headers = {'Content-type': 'application/json'};
       headers.putIfAbsent("Authorization", () => 'Bearer $accessToken');
       headers.putIfAbsent("RefreshToken", () => 'Bearer $refreshToken');
-      var response = await HttpService.GET(HttpService.API_REFRESH_TOKEN, HttpService.paramsEmpty());
+      var response = await HttpService.GET(
+          HttpService.API_REFRESH_TOKEN, HttpService.paramsEmpty());
 
       // Store access and refresh token to local
 
@@ -71,7 +76,8 @@ class HttpException implements Exception {
 }
 
 class FetchDataException extends HttpException {
-  FetchDataException([String? message]) : super(message, "Error During Communication: ");
+  FetchDataException([String? message])
+      : super(message, "Error During Communication: ");
 }
 
 class BadRequestException extends HttpException {
